@@ -7,19 +7,52 @@ using UnityEngine;
 
 public class ColorCombiner : MonoBehaviour {
 
-	public GameObject viewerObject;
+
 
 
 	private ARMarker[] markers;
 	private ARMarker red_marker;
 	private ARMarker blue_marker;
 	private ARMarker yellow_marker;
+
 	private ARMarker viewer_marker;
 
+	private ARMarker left_button_marker;
+	private ARMarker right_button_marker;
+
+
+
+
+	public GameObject red_figure1;
+	public GameObject red_figure2;
+	public GameObject red_figure3;
+
+	public GameObject blue_figure1;
+	public GameObject blue_figure2;
+	public GameObject blue_figure3;
+
+	public GameObject yellow_figure1;
+	public GameObject yellow_figure2;
+	public GameObject yellow_figure3;
+
+	public GameObject orange_figure1;
+	public GameObject orange_figure2;
+	public GameObject orange_figure3;
+
+	public GameObject green_figure1;
+	public GameObject green_figure2;
+	public GameObject green_figure3;
+
+	public GameObject violet_figure1;
+	public GameObject violet_figure2;
+	public GameObject violet_figure3;
+
+	private int nFigures = 3;
+	private bool changed = false;
 
 	public GameObject[/*Number of colors*/][/*nNumber of figures per color*/] figures;
 	private int currentFigureIndex  = 0;
-	private COLOR_MASK currentColor = COLOR_MASK.BLACK;
+	private COLOR_MASK currentColor = COLOR_MASK.RED;
 
 	private enum COLOR_MASK : int {
 		BLACK  = 0x0,
@@ -29,9 +62,8 @@ public class ColorCombiner : MonoBehaviour {
 		YELLOW = 0x4,
 		ORANGE = 0x5,
 		GREEN  = 0x6,
-
 	};
-	 
+
 
 	// Use this for initialization
 	void Start () {
@@ -45,37 +77,118 @@ public class ColorCombiner : MonoBehaviour {
 				yellow_marker = m;
 			else if (m.Tag == "Viewer_marker")
 				viewer_marker = m;
+			else if (m.Tag == "Right_button_marker")
+				right_button_marker = m;
+			else if (m.Tag == "Left_button_marker")
+				left_button_marker = m;
 			else
 				Debug.LogError ("Unknow Marker" + m.tag);
 		}
+
+		figures = new GameObject [6] [];
+		figures[0] = new GameObject [nFigures];
+		figures[1] = new GameObject [nFigures];
+		figures[2] = new GameObject [nFigures];
+		figures[3] = new GameObject [nFigures];
+		figures[4] = new GameObject [nFigures];
+		figures[5] = new GameObject [nFigures];
+
+		figures[(int)COLOR_MASK.RED-1][0] = red_figure1;
+		figures[(int)COLOR_MASK.RED-1][1] = red_figure2;
+		figures[(int)COLOR_MASK.RED-1][2] = red_figure3;
+
+		figures[(int)COLOR_MASK.BLUE-1][0] = blue_figure1;
+		figures[(int)COLOR_MASK.BLUE-1][1] = blue_figure2;
+		figures[(int)COLOR_MASK.BLUE-1][2] = blue_figure3;
+
+		figures[(int)COLOR_MASK.VIOLET-1][0] = yellow_figure1;
+		figures[(int)COLOR_MASK.VIOLET-1][1] = yellow_figure2;
+		figures[(int)COLOR_MASK.VIOLET-1][2] = yellow_figure3;
+
+		figures[(int)COLOR_MASK.YELLOW-1][0] = orange_figure1;
+		figures[(int)COLOR_MASK.YELLOW-1][1] = orange_figure2;
+		figures[(int)COLOR_MASK.YELLOW-1][2] = orange_figure3;
+
+		figures[(int)COLOR_MASK.ORANGE-1][0] = green_figure1;
+		figures[(int)COLOR_MASK.ORANGE-1][1] = green_figure2;
+		figures[(int)COLOR_MASK.ORANGE-1][2] = green_figure3;
+
+		figures[(int)COLOR_MASK.GREEN-1][0] = violet_figure1;
+		figures[(int)COLOR_MASK.GREEN-1][1] = violet_figure2;
+		figures[(int)COLOR_MASK.GREEN-1][2] = violet_figure3;
+
+		foreach (GameObject[] objs in figures){
+			foreach (GameObject obj in objs){
+				obj.SetActive (false);
+			}
+		}
+		figures [0] [0].SetActive (true);
+		if (figures [0] [0] == null)
+			Application.Quit ();
+
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		string str = "";
 
-
-		Renderer rend = viewerObject.GetComponent<Renderer>();
+		PressButton ();
 		Color c = GetCurrentColor();
-		rend.material.SetColor("_Color", c);
+		if (!currentColor.Equals(COLOR_MASK.BLACK)) {
+			Renderer rend = figures [(int)currentColor - 1] [currentFigureIndex].GetComponent<Renderer> ();
+			rend.material.SetColor ("_Color", c);
+		}
 
-	
+
 	}
 
+
+	void PressButton () {
+		if (viewer_marker.Visible) {
+			if (!left_button_marker.Visible && !changed) {
+				PreviousFigure ();
+				changed = true;
+			} else if (!right_button_marker.Visible && !changed) {
+				NextFigure ();
+				changed = true;
+			} else if (right_button_marker.Visible && left_button_marker.Visible && changed) {
+				changed = false;
+			}
+		}
+
+	}
 	void ChangeColor (COLOR_MASK color){
 		// Disable current Figure
+
 		figures [(int)currentColor - 1] [currentFigureIndex].SetActive (false);
 		// Enable the new Figure
+		currentFigureIndex = 0;
 		figures [(int)color - 1] [0].SetActive (true);
 	}
 
-	void ChangeFigure () {
+	void NextFigure () {
 		int cIx = (int)currentColor - 1;
 
 		// Disable current Figure
 		figures [cIx] [currentFigureIndex].SetActive (false);
 		// Enable the new Figure
-		figures [cIx] [++currentFigureIndex].SetActive (true);
+		currentFigureIndex = (currentFigureIndex + 1) % nFigures;
+		figures [cIx] [currentFigureIndex].SetActive (true);
+	}
+
+	void PreviousFigure () {
+		int cIx = (int)currentColor - 1;
+
+		// Disable current Figure
+		figures [cIx] [currentFigureIndex].SetActive (false);
+		// Enable the new Figure
+		if (currentFigureIndex == 0) {
+			currentFigureIndex = nFigures - 1;
+		} else {
+			currentFigureIndex = (currentFigureIndex - 1) % nFigures;
+		}
+		figures [cIx] [currentFigureIndex].SetActive (true);
 	}
 
 	Color GetCurrentColor(){
@@ -89,6 +202,7 @@ public class ColorCombiner : MonoBehaviour {
 		if (yellow_marker.Visible)
 			colorMask |= COLOR_MASK.YELLOW;
 
+		currentColor = COLOR_MASK.RED;
 		switch (colorMask) {
 		case COLOR_MASK.RED:
 			return Color.red;
