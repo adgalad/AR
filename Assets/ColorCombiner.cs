@@ -135,12 +135,6 @@ public class ColorCombiner : MonoBehaviour {
 
 		PressButton ();
 		Color c = GetCurrentColor();
-		if (!currentColor.Equals(COLOR_MASK.BLACK)) {
-			Renderer rend = figures [(int)currentColor - 1] [currentFigureIndex].GetComponent<Renderer> ();
-			rend.material.SetColor ("_Color", c);
-		}
-
-
 	}
 
 
