@@ -93,29 +93,29 @@ public class ColorCombiner : MonoBehaviour {
 		figures[4] = new GameObject [nFigures];
 		figures[5] = new GameObject [nFigures];
 
-		figures[(int)COLOR_MASK.RED-1][0] = red_figure1;
-		figures[(int)COLOR_MASK.RED-1][1] = red_figure2;
-		figures[(int)COLOR_MASK.RED-1][2] = red_figure3;
+		figures[(int)COLOR_MASK.RED-1][0]    = red_figure1;
+		figures[(int)COLOR_MASK.RED-1][1]    = red_figure2;
+		figures[(int)COLOR_MASK.RED-1][2]    = red_figure3;
 
-		figures[(int)COLOR_MASK.BLUE-1][0] = blue_figure1;
-		figures[(int)COLOR_MASK.BLUE-1][1] = blue_figure2;
-		figures[(int)COLOR_MASK.BLUE-1][2] = blue_figure3;
+		figures[(int)COLOR_MASK.BLUE-1][0]   = blue_figure1;
+		figures[(int)COLOR_MASK.BLUE-1][1]   = blue_figure2;
+		figures[(int)COLOR_MASK.BLUE-1][2]   = blue_figure3;
 
-		figures[(int)COLOR_MASK.VIOLET-1][0] = yellow_figure1;
-		figures[(int)COLOR_MASK.VIOLET-1][1] = yellow_figure2;
-		figures[(int)COLOR_MASK.VIOLET-1][2] = yellow_figure3;
+		figures[(int)COLOR_MASK.VIOLET-1][0] = violet_figure1;
+		figures[(int)COLOR_MASK.VIOLET-1][1] = violet_figure2;
+		figures[(int)COLOR_MASK.VIOLET-1][2] = violet_figure3;
 
-		figures[(int)COLOR_MASK.YELLOW-1][0] = orange_figure1;
-		figures[(int)COLOR_MASK.YELLOW-1][1] = orange_figure2;
-		figures[(int)COLOR_MASK.YELLOW-1][2] = orange_figure3;
+		figures[(int)COLOR_MASK.YELLOW-1][0] = yellow_figure1;
+		figures[(int)COLOR_MASK.YELLOW-1][1] = yellow_figure2;
+		figures[(int)COLOR_MASK.YELLOW-1][2] = yellow_figure3;
 
-		figures[(int)COLOR_MASK.ORANGE-1][0] = green_figure1;
-		figures[(int)COLOR_MASK.ORANGE-1][1] = green_figure2;
-		figures[(int)COLOR_MASK.ORANGE-1][2] = green_figure3;
+		figures[(int)COLOR_MASK.ORANGE-1][0] = orange_figure1;
+		figures[(int)COLOR_MASK.ORANGE-1][1] = orange_figure2;
+		figures[(int)COLOR_MASK.ORANGE-1][2] = orange_figure3;
 
-		figures[(int)COLOR_MASK.GREEN-1][0] = violet_figure1;
-		figures[(int)COLOR_MASK.GREEN-1][1] = violet_figure2;
-		figures[(int)COLOR_MASK.GREEN-1][2] = violet_figure3;
+		figures[(int)COLOR_MASK.GREEN-1][0]  = green_figure1;
+		figures[(int)COLOR_MASK.GREEN-1][1]  = green_figure2;
+		figures[(int)COLOR_MASK.GREEN-1][2]  = green_figure3;
 
 		foreach (GameObject[] objs in figures){
 			foreach (GameObject obj in objs){
@@ -136,9 +136,8 @@ public class ColorCombiner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		string str = "";
-		if (!ChangeColor (GetCurrentColor ())) {
-			PressButton ();
-		}
+		ChangeColor (GetCurrentColor ());
+		PressButton ();
 
 	}
 
@@ -155,10 +154,10 @@ public class ColorCombiner : MonoBehaviour {
 				changed = false;
 			}
 		}
-
 	}
 	bool ChangeColor (COLOR_MASK color){
 		// Disable current Figure
+		if (color == currentColor) return false;
 		if (currentColor != COLOR_MASK.BLACK) {
 			figures [(int)currentColor - 1] [currentFigureIndex].SetActive (false);
 			figures [(int)currentColor - 1] [currentFigureIndex].tag = "NotVisible";
