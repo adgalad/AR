@@ -119,10 +119,14 @@ public class ColorCombiner : MonoBehaviour {
 
 		foreach (GameObject[] objs in figures){
 			foreach (GameObject obj in objs){
-				obj.SetActive (false);
+				if (obj != null) {
+					obj.SetActive (false);
+					obj.tag = "NotVisible";
+				}
 			}
 		}
 		figures [0] [0].SetActive (true);
+		figures [0] [0].tag = "Visible";
 		if (figures [0] [0] == null)
 			Application.Quit ();
 
@@ -154,11 +158,16 @@ public class ColorCombiner : MonoBehaviour {
 	}
 	void ChangeColor (COLOR_MASK color){
 		// Disable current Figure
-
-		figures [(int)currentColor - 1] [currentFigureIndex].SetActive (false);
+		if (currentColor != COLOR_MASK.BLACK) {
+			figures [(int)currentColor - 1] [currentFigureIndex].SetActive (false);
+			figures [(int)currentColor - 1] [currentFigureIndex].tag = "NotVisible";
+		}
 		// Enable the new Figure
 		currentFigureIndex = 0;
-		figures [(int)color - 1] [0].SetActive (true);
+		if (color != COLOR_MASK.BLACK) {
+			figures [(int)color - 1] [0].SetActive (true);
+			figures [(int)color - 1] [0].tag = "Visible";
+		}
 	}
 
 	void NextFigure () {
@@ -166,9 +175,11 @@ public class ColorCombiner : MonoBehaviour {
 
 		// Disable current Figure
 		figures [cIx] [currentFigureIndex].SetActive (false);
+		figures [cIx] [currentFigureIndex].tag = "NotVisible";
 		// Enable the new Figure
 		currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 		figures [cIx] [currentFigureIndex].SetActive (true);
+		figures [cIx] [currentFigureIndex].tag = "Visible";
 	}
 
 	void PreviousFigure () {
@@ -176,6 +187,7 @@ public class ColorCombiner : MonoBehaviour {
 
 		// Disable current Figure
 		figures [cIx] [currentFigureIndex].SetActive (false);
+		figures [cIx] [currentFigureIndex].tag = "NotVisible";
 		// Enable the new Figure
 		if (currentFigureIndex == 0) {
 			currentFigureIndex = nFigures - 1;
@@ -183,6 +195,7 @@ public class ColorCombiner : MonoBehaviour {
 			currentFigureIndex = (currentFigureIndex - 1) % nFigures;
 		}
 		figures [cIx] [currentFigureIndex].SetActive (true);
+		figures [cIx] [currentFigureIndex].tag = "Visible";
 	}
 
 	Color GetCurrentColor(){

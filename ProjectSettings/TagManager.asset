@@ -8,9 +8,9 @@ TagManager:
   - Character
   - Glove
   - Target
-  - hole
-  - Cube
-  - Sphere
+  - Visible
+  - NotVisible
+  - Viewer
   layers:
   - Default
   - TransparentFX

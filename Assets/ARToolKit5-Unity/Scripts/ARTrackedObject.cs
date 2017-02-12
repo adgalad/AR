@@ -147,7 +147,18 @@ public class ARTrackedObject : MonoBehaviour
 							visible = visibleOrRemain = true;
 							if (eventReceiver != null) eventReceiver.BroadcastMessage("OnMarkerFound", marker, SendMessageOptions.DontRequireReceiver);
 
-							for (int i = 0; i < this.transform.childCount; i++) this.transform.GetChild(i).gameObject.SetActive(true);
+							if (tag == "Viewer") {
+								for (int i = 0; i < this.transform.childCount; i++) {
+									GameObject obj = (GameObject)this.transform.GetChild (i).gameObject;
+									if (obj.tag == "Visible") {
+										obj.SetActive (true);
+										Debug.Log (obj.name);
+									}
+								}
+							} else {
+								for (int i = 0; i < this.transform.childCount; i++)
+									this.transform.GetChild (i).gameObject.SetActive (true);
+							}
 						}
 
                         Matrix4x4 pose;
