@@ -1,17 +1,47 @@
 fileFormatVersion: 2
-guid: fcdaf9533e870934da4b8426f33045f4
-timeCreated: 1486918404
+guid: 4e7cec66986b92a46b69d429d0c2be7d
+timeCreated: 1486926814
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: pCube15
+    100004: pCube16
+    100006: pCube17
+    100008: pCube18
+    100010: pCube3
+    100012: polySurface1
+    100014: pTorus17
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Orange
-    7400000: Default Take
-    9500000: //RootNode
+    400002: pCube15
+    400004: pCube16
+    400006: pCube17
+    400008: pCube18
+    400010: pCube3
+    400012: polySurface1
+    400014: pTorus17
+    2300000: pCube15
+    2300002: pCube16
+    2300004: pCube17
+    2300006: pCube18
+    2300008: pCube3
+    2300010: polySurface1
+    2300012: pTorus17
+    3300000: pCube15
+    3300002: pCube16
+    3300004: pCube17
+    3300006: pCube18
+    3300008: pCube3
+    3300010: polySurface1
+    3300012: pTorus17
+    4300000: pCube15
+    4300002: pCube16
+    4300004: pCube17
+    4300006: pCube18
+    4300008: pCube3
+    4300010: polySurface1
+    4300012: pTorus17
   materials:
     importMaterials: 1
     materialName: 0
@@ -74,7 +104,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
