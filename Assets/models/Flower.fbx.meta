@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: fd2def2e16b700f4f993d70351eb22d5
+timeCreated: 1486917545
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Cam
+    100002: //RootNode
+    100004: Flower1
+    100006: Flower1 1
+    100008: Flower10
+    100010: Flower11
+    100012: Flower12
+    100014: Flower13
+    100016: Flower14
+    100018: Flower15
+    100020: Flower16
+    100022: Flower17
+    100024: Flower18
+    100026: Flower2
+    100028: Flower3
+    100030: Flower4
+    100032: Flower5
+    100034: Flower6
+    100036: Flower7
+    100038: Flower8
+    100040: Flower9
+    100042: Light1
+    100044: Light1 1
+    100046: Light2
+    100048: Light3
+    400000: Cam
+    400002: //RootNode
+    400004: Flower1
+    400006: Flower1 1
+    400008: Flower10
+    400010: Flower11
+    400012: Flower12
+    400014: Flower13
+    400016: Flower14
+    400018: Flower15
+    400020: Flower16
+    400022: Flower17
+    400024: Flower18
+    400026: Flower2
+    400028: Flower3
+    400030: Flower4
+    400032: Flower5
+    400034: Flower6
+    400036: Flower7
+    400038: Flower8
+    400040: Flower9
+    400042: Light1
+    400044: Light1 1
+    400046: Light2
+    400048: Light3
+    2300000: Flower1 1
+    2300002: Flower10
+    2300004: Flower11
+    2300006: Flower12
+    2300008: Flower13
+    2300010: Flower14
+    2300012: Flower15
+    2300014: Flower16
+    2300016: Flower17
+    2300018: Flower18
+    2300020: Flower2
+    2300022: Flower3
+    2300024: Flower4
+    2300026: Flower5
+    2300028: Flower6
+    2300030: Flower7
+    2300032: Flower8
+    2300034: Flower9
+    3300000: Flower1 1
+    3300002: Flower10
+    3300004: Flower11
+    3300006: Flower12
+    3300008: Flower13
+    3300010: Flower14
+    3300012: Flower15
+    3300014: Flower16
+    3300016: Flower17
+    3300018: Flower18
+    3300020: Flower2
+    3300022: Flower3
+    3300024: Flower4
+    3300026: Flower5
+    3300028: Flower6
+    3300030: Flower7
+    3300032: Flower8
+    3300034: Flower9
+    4300000: Flower1
+    4300002: Flower2
+    4300004: Flower3
+    4300006: Flower4
+    4300008: Flower5
+    4300010: Flower6
+    4300012: Flower7
+    4300014: Flower8
+    4300016: Flower9
+    4300018: Flower10
+    4300020: Flower11
+    4300022: Flower12
+    4300024: Flower13
+    4300026: Flower14
+    4300028: Flower15
+    4300030: Flower16
+    4300032: Flower17
+    4300034: Flower18
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
