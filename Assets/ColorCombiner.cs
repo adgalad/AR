@@ -52,7 +52,7 @@ public class ColorCombiner : MonoBehaviour {
 
 	public GameObject[/*Number of colors*/][/*nNumber of figures per color*/] figures;
 	private int currentFigureIndex  = 0;
-	private COLOR_MASK currentColor = COLOR_MASK.RED;
+	private COLOR_MASK currentColor = COLOR_MASK.BLACK;
 
 	private enum COLOR_MASK : int {
 		BLACK  = 0x0,
@@ -125,10 +125,10 @@ public class ColorCombiner : MonoBehaviour {
 				}
 			}
 		}
-		figures [0] [0].SetActive (true);
-		figures [0] [0].tag = "Visible";
-		if (figures [0] [0] == null)
-			Application.Quit ();
+//		figures [0] [0].SetActive (true);
+//		figures [0] [0].tag = "Visible";
+//		if (figures [0] [0] == null)
+//			Application.Quit ();
 
 
 	}
@@ -136,14 +136,15 @@ public class ColorCombiner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		string str = "";
+		if (!ChangeColor (GetCurrentColor ())) {
+			PressButton ();
+		}
 
-		PressButton ();
-		Color c = GetCurrentColor();
 	}
 
 
 	void PressButton () {
-		if (viewer_marker.Visible) {
+		if (viewer_marker.Visible && currentColor != COLOR_MASK.BLACK) {
 			if (!left_button_marker.Visible && !changed) {
 				PreviousFigure ();
 				changed = true;
@@ -156,7 +157,7 @@ public class ColorCombiner : MonoBehaviour {
 		}
 
 	}
-	void ChangeColor (COLOR_MASK color){
+	bool ChangeColor (COLOR_MASK color){
 		// Disable current Figure
 		if (currentColor != COLOR_MASK.BLACK) {
 			figures [(int)currentColor - 1] [currentFigureIndex].SetActive (false);
@@ -164,41 +165,49 @@ public class ColorCombiner : MonoBehaviour {
 		}
 		// Enable the new Figure
 		currentFigureIndex = 0;
+		currentColor = color;
 		if (color != COLOR_MASK.BLACK) {
+			Debug.Log (color);
 			figures [(int)color - 1] [0].SetActive (true);
 			figures [(int)color - 1] [0].tag = "Visible";
+			return true;
 		}
+		return false;
 	}
 
 	void NextFigure () {
 		int cIx = (int)currentColor - 1;
 
 		// Disable current Figure
-		figures [cIx] [currentFigureIndex].SetActive (false);
-		figures [cIx] [currentFigureIndex].tag = "NotVisible";
-		// Enable the new Figure
-		currentFigureIndex = (currentFigureIndex + 1) % nFigures;
-		figures [cIx] [currentFigureIndex].SetActive (true);
-		figures [cIx] [currentFigureIndex].tag = "Visible";
+		if (currentColor != COLOR_MASK.BLACK) {
+			figures [cIx] [currentFigureIndex].SetActive (false);
+			figures [cIx] [currentFigureIndex].tag = "NotVisible";
+			// Enable the new Figure
+			currentFigureIndex = (currentFigureIndex + 1) % nFigures;
+			figures [cIx] [currentFigureIndex].SetActive (true);
+			figures [cIx] [currentFigureIndex].tag = "Visible";
+		}
 	}
 
 	void PreviousFigure () {
 		int cIx = (int)currentColor - 1;
 
-		// Disable current Figure
-		figures [cIx] [currentFigureIndex].SetActive (false);
-		figures [cIx] [currentFigureIndex].tag = "NotVisible";
-		// Enable the new Figure
-		if (currentFigureIndex == 0) {
-			currentFigureIndex = nFigures - 1;
-		} else {
-			currentFigureIndex = (currentFigureIndex - 1) % nFigures;
+		if (currentColor != COLOR_MASK.BLACK) {
+			// Disable current Figure
+			figures [cIx] [currentFigureIndex].SetActive (false);
+			figures [cIx] [currentFigureIndex].tag = "NotVisible";
+			// Enable the new Figure
+			if (currentFigureIndex == 0) {
+				currentFigureIndex = nFigures - 1;
+			} else {
+				currentFigureIndex = (currentFigureIndex - 1) % nFigures;
+			}
+			figures [cIx] [currentFigureIndex].SetActive (true);
+			figures [cIx] [currentFigureIndex].tag = "Visible";
 		}
-		figures [cIx] [currentFigureIndex].SetActive (true);
-		figures [cIx] [currentFigureIndex].tag = "Visible";
 	}
 
-	Color GetCurrentColor(){
+	COLOR_MASK GetCurrentColor(){
 		COLOR_MASK colorMask = COLOR_MASK.BLACK;
 
 
@@ -209,28 +218,7 @@ public class ColorCombiner : MonoBehaviour {
 		if (yellow_marker.Visible)
 			colorMask |= COLOR_MASK.YELLOW;
 
-		currentColor = COLOR_MASK.RED;
-		switch (colorMask) {
-		case COLOR_MASK.RED:
-			return Color.red;
-
-		case COLOR_MASK.BLUE:
-			return Color.blue;
-
-		case COLOR_MASK.VIOLET:
-			return new Vector4 (1, 0, 1, 1);
-
-		case COLOR_MASK.YELLOW:
-			return Color.yellow;
-
-		case COLOR_MASK.ORANGE:
-			return new Vector4 (1, 0.647058823529412f, 0, 1);
-
-		case COLOR_MASK.GREEN:
-			return Color.green;
-
-		default:
-			return Color.black;
-		}
+		return colorMask;
+		
 	}
 }
