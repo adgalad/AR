@@ -140,12 +140,24 @@ public class Colorjajaja : MonoBehaviour {
 			if (!blue_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.BLUE;
 				colorChanged = true;
+				GameObject No = blue_marker.transform.GetChild (0).gameObject;
+				GameObject Yes = blue_marker.transform.GetChild (1).gameObject;
+				Yes.SetActive (!Yes.active);
+				No.SetActive (!No.active);
 			} else if (!red_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.RED;
 				colorChanged = true;
+				GameObject No = red_marker.transform.GetChild (0).gameObject;
+				GameObject Yes = red_marker.transform.GetChild (1).gameObject;
+				Yes.SetActive (!Yes.active);
+				No.SetActive (!No.active);
 			} else if (!yellow_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
+				GameObject No = yellow_marker.transform.GetChild (0).gameObject;
+				GameObject Yes = yellow_marker.transform.GetChild (1).gameObject;
+				Yes.SetActive (!Yes.active);
+				No.SetActive (!No.active);
 			} else if (!left_button_marker.Visible && !colorChanged) {
 				currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 				changed = true;
