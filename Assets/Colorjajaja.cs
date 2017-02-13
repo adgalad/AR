@@ -141,7 +141,7 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.BLUE;
 				colorChanged = true;
 				for (int i = 0 ; i < blue_marker.transform.childCount ; ++i){
-					GameObject obj = blue_marker.transform.GetChild(i);
+					GameObject obj = blue_marker.transform.GetChild(i).gameObject;
 					if (obj.tag == "Visible") {
 						obj.tag = "NoVisible";
 					} else if (obj.tag == "Visible") {
@@ -153,7 +153,7 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.RED;
 				colorChanged = true;
 				for (int i = 0 ; i < red_marker.transform.childCount ; ++i){
-					GameObject obj = red_marker.transform.GetChild(i);
+					GameObject obj = red_marker.transform.GetChild(i).gameObject;
 					if (obj.tag == "Visible") {
 						obj.tag = "NoVisible";
 					} else if (obj.tag == "Visible") {
@@ -165,7 +165,7 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
 				for (int i = 0 ; i < yellow_marker.transform.childCount ; ++i){
-					GameObject obj = yellow_marker.transform.GetChild(i);
+					GameObject obj = yellow_marker.transform.GetChild(i).gameObject;
 					if (obj.tag == "Visible") {
 						obj.tag = "NoVisible";
 					} else if (obj.tag == "Visible") {
