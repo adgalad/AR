@@ -23,29 +23,29 @@ public class Colorjajaja : MonoBehaviour {
 
 
 
-	public GameObject red_figure1;
-	public GameObject red_figure2;
+	public GameObject figure1;
+	public GameObject figure2;
 
-	public GameObject blue_figure1;
-	public GameObject blue_figure2;
+	public GameObject figure3;
+	public GameObject figure4;
 
-	public GameObject yellow_figure1;
-	public GameObject yellow_figure2;
+//	public GameObject yellow_figure1;
+//	public GameObject yellow_figure2;
+//
+//	public GameObject orange_figure1;
+//	public GameObject orange_figure2;
+//
+//	public GameObject green_figure1;
+//	public GameObject green_figure2;
+//
+//	public GameObject violet_figure1;
+//	public GameObject violet_figure2;
 
-	public GameObject orange_figure1;
-	public GameObject orange_figure2;
-
-	public GameObject green_figure1;
-	public GameObject green_figure2;
-
-	public GameObject violet_figure1;
-	public GameObject violet_figure2;
-
-	private int nFigures = 3;
+	private int nFigures = 1;
 	private bool changed = false;
 	private bool colorChanged = true;
 
-	public GameObject[/*Number of colors*/][/*nNumber of figures per color*/] figures;
+	public GameObject[] figures;
 	private int currentFigureIndex  = 0;
 	private COLOR_MASK currentColor = COLOR_MASK.BLACK;
 
@@ -80,42 +80,22 @@ public class Colorjajaja : MonoBehaviour {
 				Debug.LogError ("Unknow Marker" + m.tag);
 		}
 
-		figures = new GameObject [6] [];
-		figures[0] = new GameObject [nFigures];
-		figures[1] = new GameObject [nFigures];
-		figures[2] = new GameObject [nFigures];
-		figures[3] = new GameObject [nFigures];
-		figures[4] = new GameObject [nFigures];
-		figures[5] = new GameObject [nFigures];
+		figures = new GameObject [4];
 
-		figures[(int)COLOR_MASK.RED-1][0]    = red_figure1;
-		figures[(int)COLOR_MASK.RED-1][1]    = red_figure2;
+		figures[0]    = figure1;
+		figures[1]    = figure2;
+		figures[2]    = figure3;
+		figures[3]    = figure4;
 
-		figures[(int)COLOR_MASK.BLUE-1][0]   = blue_figure1;
-		figures[(int)COLOR_MASK.BLUE-1][1]   = blue_figure2;
 
-		figures[(int)COLOR_MASK.VIOLET-1][0] = violet_figure1;
-		figures[(int)COLOR_MASK.VIOLET-1][1] = violet_figure2;
-
-		figures[(int)COLOR_MASK.YELLOW-1][0] = yellow_figure1;
-		figures[(int)COLOR_MASK.YELLOW-1][1] = yellow_figure2;
-
-		figures[(int)COLOR_MASK.ORANGE-1][0] = orange_figure1;
-		figures[(int)COLOR_MASK.ORANGE-1][1] = orange_figure2;
-
-		figures[(int)COLOR_MASK.GREEN-1][0]  = green_figure1;
-		figures[(int)COLOR_MASK.GREEN-1][1]  = green_figure2;
-
-		foreach (GameObject[] objs in figures){
-			foreach (GameObject obj in objs){
-				if (obj != null) {
-					obj.SetActive (false);
-					obj.tag = "NotVisible";
-				}
+		foreach (GameObject obj in figures) {
+			if (obj != null) {
+				obj.SetActive (false);
+				obj.tag = "NotVisible";
 			}
 		}
-		figures [0] [0].SetActive (true);
-		figures [0] [0].tag = "Visible";
+		figures [0].SetActive (true);
+		figures [0].tag = "Visible";
 //		if (figures [0] [0] == null)
 //			Application.Quit ();
 
@@ -129,6 +109,30 @@ public class Colorjajaja : MonoBehaviour {
 		PressButton ();
 		Debug.Log (currentColor);
 
+		ChangeColor ();
+	}
+
+	void ChangeColor(){
+		GameObject obj = figures [currentFigureIndex];
+		obj.GetComponent<Renderer> ().material.color = maskToColor ();
+	}
+
+	Color maskToColor () {
+		switch (currentColor) {
+		case COLOR_MASK.BLUE:
+			return Color.blue;
+		case COLOR_MASK.RED:
+			return Color.red;
+		case COLOR_MASK.YELLOW:
+			return Color.yellow;
+		case COLOR_MASK.ORANGE:
+			return new Vector4 (255,165,0,255);
+		case COLOR_MASK.GREEN:
+			return Color.green;
+		case COLOR_MASK.VIOLET:
+			return new Vector4 (255,0,255,255);
+		}
+		return Color.white;
 	}
 
 	void PressButton () {
@@ -143,13 +147,16 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
 			} else if (!left_button_marker.Visible && !colorChanged) {
-				currentFigureIndex++;
+				currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 				changed = true;
 			} else if (!right_button_marker.Visible && !colorChanged) {
-				currentFigureIndex--;
+				if (currentFigureIndex == 0) {
+					currentFigureIndex = nFigures - 1;
+				} else {
+					currentFigureIndex = (currentFigureIndex - 1) % nFigures;
+				}
 				changed = true;
-			}
-			else if (blue_marker.Visible && red_marker.Visible && yellow_marker.Visible && 
+			} else if (blue_marker.Visible && red_marker.Visible && yellow_marker.Visible && 
 				     right_button_marker.Visible && left_button_marker.Visible) 
 			{
 				colorChanged = false;
