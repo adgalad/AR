@@ -164,8 +164,6 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.RED;
 				colorChanged = true;
 				GameObject obj = noButtonRed;
-
-				obj = noButtonBlue;
 				if (obj.tag == "Visible") {
 					obj.tag = "NoVisible";
 				} else if (obj.tag == "NoVisible") {
@@ -176,8 +174,6 @@ public class Colorjajaja : MonoBehaviour {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
 				GameObject obj = noButtonYellow;
-
-				obj = noButtonBlue;
 				if (obj.tag == "Visible") {
 					obj.tag = "NoVisible";
 				} else if (obj.tag == "NoVisible") {
