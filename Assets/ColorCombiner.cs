@@ -217,6 +217,9 @@ public class ColorCombiner : MonoBehaviour {
 		if (yellow_marker.Visible)
 			colorMask |= COLOR_MASK.YELLOW;
 
+		if ((int)colorMask == 7) {
+			return COLOR_MASK.BLACK;
+		}
 		return colorMask;
 		
 	}
