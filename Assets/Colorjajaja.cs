@@ -23,6 +23,15 @@ public class Colorjajaja : MonoBehaviour {
 
 
 
+	public GameObject yesButtonRed;
+	public GameObject noButtonRed;
+
+	public GameObject yesButtonBlue;
+	public GameObject noButtonBlue;
+
+	public GameObject yesButtonYellow;
+	public GameObject noButtonYellow;
+
 	public GameObject figure1;
 	public GameObject figure2;
 
@@ -140,39 +149,55 @@ public class Colorjajaja : MonoBehaviour {
 			if (!blue_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.BLUE;
 				colorChanged = true;
-				for (int i = 0 ; i < blue_marker.transform.childCount ; ++i){
-					GameObject obj = blue_marker.transform.GetChild(i).gameObject;
-					if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					} else if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					}
-					obj.SetActive (!obj.active);
+				GameObject obj = yesButtonBlue;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
 				}
+				obj.SetActive (!obj.active);
+				obj = noButtonBlue;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				}
+				obj.SetActive (!obj.active);
+				
 			} else if (!red_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.RED;
 				colorChanged = true;
-				for (int i = 0 ; i < red_marker.transform.childCount ; ++i){
-					GameObject obj = red_marker.transform.GetChild(i).gameObject;
-					if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					} else if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					}
-					obj.SetActive (!obj.active);
+				GameObject obj = yesButtonRed;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
 				}
+				obj.SetActive (!obj.active);
+				obj = noButtonRed;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				}
+				obj.SetActive (!obj.active);
 			} else if (!yellow_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
-				for (int i = 0 ; i < yellow_marker.transform.childCount ; ++i){
-					GameObject obj = yellow_marker.transform.GetChild(i).gameObject;
-					if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					} else if (obj.tag == "Visible") {
-						obj.tag = "NoVisible";
-					}
-					obj.SetActive (!obj.active);
+				GameObject obj = yesButtonYellow;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
 				}
+				obj.SetActive (!obj.active);
+				obj = noButtonYellow;
+				if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				} else if (obj.tag == "Visible") {
+					obj.tag = "NoVisible";
+				}
+				obj.SetActive (!obj.active);
 			} else if (!left_button_marker.Visible && !colorChanged) {
 				currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 				changed = true;
