@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class Colorjajaja : MonoBehaviour {
+public class Colorizing : MonoBehaviour {
 
 
 
@@ -23,20 +23,18 @@ public class Colorjajaja : MonoBehaviour {
 
 
 
-	public GameObject yesButtonRed;
+//	public GameObject yesButtonRed;
 	public GameObject noButtonRed;
 
-	public GameObject yesButtonBlue;
+//	public GameObject yesButtonBlue;
 	public GameObject noButtonBlue;
 
-	public GameObject yesButtonYellow;
+//	public GameObject yesButtonYellow;
 	public GameObject noButtonYellow;
 
-	public GameObject figure1;
-	public GameObject figure2;
 
-	public GameObject figure3;
-	public GameObject figure4;
+//	public GameObject figure3;
+//	public GameObject figure4;
 
 	//	public GameObject yellow_figure1;
 	//	public GameObject yellow_figure2;
@@ -50,7 +48,7 @@ public class Colorjajaja : MonoBehaviour {
 	//	public GameObject violet_figure1;
 	//	public GameObject violet_figure2;
 
-	private int nFigures = 1;
+	private int nFigures;
 	private bool changed = false;
 	private bool colorChanged = true;
 
@@ -89,14 +87,11 @@ public class Colorjajaja : MonoBehaviour {
 				Debug.LogError ("Unknow Marker" + m.tag);
 		}
 
-		figures = new GameObject [4];
 
-		figures[0]    = figure1;
-		figures[1]    = figure2;
-		figures[2]    = figure3;
-		figures[3]    = figure4;
+//		figures[2]    = figure3;
+//		figures[3]    = figure4;
 
-
+		nFigures = figures.Length;
 		foreach (GameObject obj in figures) {
 			if (obj != null) {
 				obj.SetActive (false);
@@ -117,8 +112,6 @@ public class Colorjajaja : MonoBehaviour {
 		string str = "";
 		//		ChangeColor (GetCurrentColor ());
 		PressButton ();
-		Debug.Log (currentColor);
-
 		ChangeColor ();
 	}
 
@@ -136,11 +129,11 @@ public class Colorjajaja : MonoBehaviour {
 		case COLOR_MASK.YELLOW:
 			return Color.yellow;
 		case COLOR_MASK.ORANGE:
-			return new Vector4 (255,165,0,255);
+			return new Color(1F, 0.47F,0);
 		case COLOR_MASK.GREEN:
 			return Color.green;
 		case COLOR_MASK.VIOLET:
-			return new Vector4 (255,0,255,255);
+			return new Color (1,0,1,0);
 		}
 		return Color.white;
 	}
@@ -150,46 +143,53 @@ public class Colorjajaja : MonoBehaviour {
 			if (!blue_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.BLUE;
 				colorChanged = true;
-				GameObject obj = noButtonBlue;
-
-				obj = noButtonBlue;
-				if (obj.tag == "Visible") {
-					obj.tag = "NoVisible";
-				} else if (obj.tag == "NoVisible") {
-					obj.tag = "Visible";
+				if (noButtonBlue.tag == "Visible") {
+					noButtonBlue.tag = "NotVisible";
+				} else if (noButtonBlue.tag == "NotVisible") {
+					noButtonBlue.tag = "Visible";
 				}
-				obj.SetActive (!obj.active);
+//				obj.SetActive (!obj.active);
 
 			} else if (!red_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.RED;
 				colorChanged = true;
-				GameObject obj = noButtonRed;
-				if (obj.tag == "Visible") {
-					obj.tag = "NoVisible";
-				} else if (obj.tag == "NoVisible") {
-					obj.tag = "Visible";
+				Debug.Log (noButtonRed.tag);
+				if (noButtonRed.tag == "Visible") {
+					noButtonRed.tag = "NotVisible";
+				} else if (noButtonRed.tag == "NotVisible") {
+					noButtonRed.tag = "Visible";
 				}
-				obj.SetActive (!obj.active);
+//				obj.SetActive (!obj.active);
 			} else if (!yellow_marker.Visible && !colorChanged) {
 				currentColor ^= COLOR_MASK.YELLOW;
 				colorChanged = true;
 				GameObject obj = noButtonYellow;
-				if (obj.tag == "Visible") {
-					obj.tag = "NoVisible";
-				} else if (obj.tag == "NoVisible") {
-					obj.tag = "Visible";
+				if (noButtonYellow.tag == "Visible") {
+					noButtonYellow.tag = "NotVisible";
+				} else if (noButtonYellow.tag == "NotVisible") {
+					noButtonYellow.tag = "Visible";
 				}
-				obj.SetActive (!obj.active);
-			} else if (!left_button_marker.Visible && !colorChanged) {
+//				obj.SetActive (!obj.active);
+			} else if (!left_button_marker.Visible && !changed) {
+				figures [currentFigureIndex].SetActive (false);
+				figures [currentFigureIndex].tag = "NotVisible";
 				currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 				changed = true;
-			} else if (!right_button_marker.Visible && !colorChanged) {
+				figures [currentFigureIndex].SetActive (true);
+				figures [currentFigureIndex].tag = "Visible";
+				ResetColors ();
+			} else if (!right_button_marker.Visible && !changed) {
+				figures [currentFigureIndex].SetActive (false);
+				figures [currentFigureIndex].tag = "NotVisible";
 				if (currentFigureIndex == 0) {
 					currentFigureIndex = nFigures - 1;
 				} else {
 					currentFigureIndex = (currentFigureIndex - 1) % nFigures;
 				}
+				figures [currentFigureIndex].SetActive (true);
+				figures [currentFigureIndex].tag = "Visible";
 				changed = true;
+				ResetColors ();
 			} else if (blue_marker.Visible && red_marker.Visible && yellow_marker.Visible && 
 				right_button_marker.Visible && left_button_marker.Visible) 
 			{
@@ -199,5 +199,14 @@ public class Colorjajaja : MonoBehaviour {
 		}
 	}
 
-
+	void ResetColors() {
+		currentColor = COLOR_MASK.BLACK;
+		noButtonBlue.tag = "Visible";
+		noButtonBlue.SetActive (true);
+		noButtonRed.tag = "Visible";
+		noButtonRed.SetActive (true);
+		noButtonYellow.tag = "Visible";
+		noButtonYellow.SetActive (true);
+			
+	}
 }
