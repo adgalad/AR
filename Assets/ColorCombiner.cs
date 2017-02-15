@@ -20,8 +20,9 @@ public class ColorCombiner : MonoBehaviour {
 	private ARMarker left_button_marker;
 	private ARMarker right_button_marker;
 
+	private AudioSource audioS;
 
-
+	public AudioClip[] sounds;
 
 	public GameObject red_figure1;
 	public GameObject red_figure2;
@@ -67,6 +68,7 @@ public class ColorCombiner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		audioS = GetComponent<AudioSource> ();
 		markers = FindObjectsOfType (typeof(ARMarker)) as ARMarker[];
 		foreach (ARMarker m in markers) {
 			if (m.Tag == "Red_marker")
@@ -169,6 +171,7 @@ public class ColorCombiner : MonoBehaviour {
 			Debug.Log (color);
 			figures [(int)color - 1] [0].SetActive (true);
 			figures [(int)color - 1] [0].tag = "Visible";
+			playSound ();
 			return true;
 		}
 		return false;
@@ -185,6 +188,7 @@ public class ColorCombiner : MonoBehaviour {
 			currentFigureIndex = (currentFigureIndex + 1) % nFigures;
 			figures [cIx] [currentFigureIndex].SetActive (true);
 			figures [cIx] [currentFigureIndex].tag = "Visible";
+			playSound ();
 		}
 	}
 
@@ -203,9 +207,18 @@ public class ColorCombiner : MonoBehaviour {
 			}
 			figures [cIx] [currentFigureIndex].SetActive (true);
 			figures [cIx] [currentFigureIndex].tag = "Visible";
+			playSound ();
 		}
-	}
 
+	}
+	void playSound(){
+		AudioClip clip = sounds [((int)currentColor - 1) * 3 + currentFigureIndex];
+		if (clip != null) {
+			audioS.clip = clip;
+			audioS.Play ();
+		}
+			
+	}
 	COLOR_MASK GetCurrentColor(){
 		COLOR_MASK colorMask = COLOR_MASK.BLACK;
 

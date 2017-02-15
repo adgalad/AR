@@ -20,8 +20,12 @@ public class Colorizing : MonoBehaviour {
 	private ARMarker left_button_marker;
 	private ARMarker right_button_marker;
 
+	private AudioSource audioS;
 
+	public AudioClip[] sounds;
+	public AudioClip correctSound;
 
+	private COLOR_MASK[] correctColor;
 
 //	public GameObject yesButtonRed;
 	public GameObject noButtonRed;
@@ -32,6 +36,7 @@ public class Colorizing : MonoBehaviour {
 //	public GameObject yesButtonYellow;
 	public GameObject noButtonYellow;
 
+	private int victory = 0;
 
 //	public GameObject figure3;
 //	public GameObject figure4;
@@ -69,6 +74,7 @@ public class Colorizing : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		audioS = GetComponent<AudioSource> ();
 		markers = FindObjectsOfType (typeof(ARMarker)) as ARMarker[];
 		foreach (ARMarker m in markers) {
 			if (m.Tag == "Red_marker")
@@ -100,19 +106,59 @@ public class Colorizing : MonoBehaviour {
 		}
 		figures [0].SetActive (true);
 		figures [0].tag = "Visible";
+		audioS.clip = sounds [0];
+		audioS.Play ();
 		//		if (figures [0] [0] == null)
 		//			Application.Quit ();
 
-
-
+		correctColor = new COLOR_MASK[nFigures];
+		correctColor [0] = COLOR_MASK.RED;
+		correctColor [1] = COLOR_MASK.VIOLET;
+	
+	}
+	private IEnumerator Pause(int p)
+	{
+		audioS.clip = correctSound;
+		audioS.pitch = 1f;
+		victory = 1;
+		audioS.Play ();
+		yield return new WaitForSeconds(correctSound.length);
+		audioS.pitch = 0.6f;
+		currentFigureIndex = (currentFigureIndex + 1) % nFigures;
+		playSound ();
+		victory = 2;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		string str = "";
 		//		ChangeColor (GetCurrentColor ());
-		PressButton ();
-		ChangeColor ();
+		if (victory == 0) {
+			PressButton ();
+			ChangeColor ();
+			if (currentColor == correctColor [currentFigureIndex]) {
+			
+				StartCoroutine (Pause (3));
+
+
+
+			}
+		} else if (victory == 2){
+			if (currentFigureIndex == 0) {
+				figures [nFigures-1].SetActive (false);
+				figures [nFigures-1].tag = "NotVisible";
+			} else {
+				figures [currentFigureIndex-1].SetActive (false);
+				figures [currentFigureIndex-1].tag = "NotVisible";
+			}
+
+			figures [currentFigureIndex].SetActive (true);
+			figures [currentFigureIndex].tag = "Visible";
+			changed = true;
+
+			ResetColors ();
+			victory = 0;
+		}
+			
 	}
 
 	void ChangeColor(){
@@ -178,6 +224,7 @@ public class Colorizing : MonoBehaviour {
 				figures [currentFigureIndex].SetActive (true);
 				figures [currentFigureIndex].tag = "Visible";
 				ResetColors ();
+				playSound ();
 			} else if (!right_button_marker.Visible && !changed) {
 				figures [currentFigureIndex].SetActive (false);
 				figures [currentFigureIndex].tag = "NotVisible";
@@ -190,6 +237,7 @@ public class Colorizing : MonoBehaviour {
 				figures [currentFigureIndex].tag = "Visible";
 				changed = true;
 				ResetColors ();
+				playSound ();
 			} else if (blue_marker.Visible && red_marker.Visible && yellow_marker.Visible && 
 				right_button_marker.Visible && left_button_marker.Visible) 
 			{
@@ -197,6 +245,15 @@ public class Colorizing : MonoBehaviour {
 				changed = false;
 			}
 		}
+	}
+
+	void playSound(){
+		AudioClip clip = sounds [currentFigureIndex];
+		if (clip != null) {
+			audioS.clip = clip;
+			audioS.Play ();
+		}
+
 	}
 
 	void ResetColors() {
