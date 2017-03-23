@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="Marca1" size="50.000000 28.118608" />
+    <ImageTarget name="Marca3" size="300.000000 300.000000" />
+    <ImageTarget name="Marca4" size="300.000000 300.000000" />
+    <ImageTarget name="BigMarker" size="273.000000 173.302078" />
+    <ImageTarget name="Marca2" size="50.000000 31.390135" />
+    <ImageTarget name="tarjeta-3_scaled" size="50.000000 71.093750" />
+  </Tracking>
+</QCARConfig>
