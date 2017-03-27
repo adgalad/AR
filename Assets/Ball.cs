@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
 	public GameObject start;
+	public int gravity;
 
 	public float startSpeed;
 	WebCamTexture webCamTexture;
@@ -32,7 +33,7 @@ public class Ball : MonoBehaviour {
 		if (rb.velocity.magnitude > 10 && rb.velocity.magnitude < 40) {
 			rb.AddForce (rb.velocity.normalized * 40);
 		} else if (rb.velocity.magnitude >= 40) {
-			rb.AddForce (new Vector3 (-1, 0, 0) * 10);
+			rb.AddForce (new Vector3 (0, 0, -1) * 0);
 		}
 
 	}
@@ -51,7 +52,7 @@ public class Ball : MonoBehaviour {
 	IEnumerator wait(int secs) {
 		
 		yield return new WaitForSecondsRealtime(secs);
-		Vector3 direction = new Vector3 (1, 0, Random.Range (-1, 1));
+		Vector3 direction = new Vector3 (Random.Range(-1,1), 0, 1);
 		print (direction);
 		rb.velocity =  (direction * startSpeed);
 
