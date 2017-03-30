@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Ball : MonoBehaviour {
 
 	public int lives;
-	public int bricks = 9;
+	public int bricks = 4;
 	public Text text;
 	public GameObject gameOver;
 
@@ -18,6 +18,8 @@ public class Ball : MonoBehaviour {
 	Renderer rend;
 	Rigidbody rb;
 
+	SphereCollider col;
+
 	Vector3 initialPosition;
 
 	void Start() 
@@ -26,8 +28,10 @@ public class Ball : MonoBehaviour {
 		gameOver.SetActive (false);
 		rend = GetComponent <Renderer> ();
 		rb   = GetComponent <Rigidbody> ();
+		col   = GetComponent <SphereCollider> ();
 		initialPosition = new Vector3 (0f,0.216f, 0.281f);
 		wait (1);
+		col.enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -35,13 +39,15 @@ public class Ball : MonoBehaviour {
 		Vector3 move = Vector3.zero;
 		move.x = Input.GetAxis ("Horizontal");
 		move.y = Input.GetAxis ("Vertical");
-	
+		col.enabled = true;
 		rb.AddForce (move*100);
 
-		if (rb.velocity.magnitude > 10 && rb.velocity.magnitude < 40) {
+		if (rb.velocity.magnitude > 0 && rb.velocity.magnitude < 40) {
 			rb.AddForce (rb.velocity.normalized * 40);
 		} 
-
+		if (Input.GetKey (KeyCode.Space)) {
+			reset ();
+		}
 	}
 	void OnTriggerEnter(Collider other){
 
@@ -72,7 +78,7 @@ public class Ball : MonoBehaviour {
 			gameOver.SetActive (true);
 			gameObject.SetActive (false);
 		} else {
-			StartCoroutine(wait (2));
+			StartCoroutine(wait (3));
 		}
 		text.text = "Lives: " + lives;
 
